@@ -104,14 +104,14 @@ public class PlayerController : MonoBehaviour
     
     private void ConstrainPlayerPosition()
     {
-        // Stop movement on the z axis
-        Vector3 vel = playerRb.linearVelocity;
-        vel.z = 0.0f;
-        playerRb.linearVelocity = vel;
+        //// Stop movement on the z axis
+        //Vector3 vel = playerRb.linearVelocity;
+        //vel.z = 0.0f;
+        //playerRb.linearVelocity = vel;
 
-        Vector3 pos = playerRb.position;
-        pos.z = 0.0f;
-        playerRb.position = pos;
+        //Vector3 pos = playerRb.position;
+        //pos.z = -0.6f;
+        //playerRb.position = pos;
 
         // Set boundaries on the x axis
         if (transform.position.x > xBound)

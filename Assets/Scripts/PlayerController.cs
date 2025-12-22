@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         //Shoot projectile if there is input
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Instantiate(projectile, transform.position, transform.rotation);
+            Instantiate(projectile, new Vector3(transform.position.x+1f, transform.position.y+1f, transform.position.z), Quaternion.Euler(-35f, transform.eulerAngles.y, transform.eulerAngles.z));
         }
     }
 

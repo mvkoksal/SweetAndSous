@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // Public Booleans
+    public float health = 100f;
+    public bool isAlive = true;
+
     // Player Movement
     private float speed = 10.0f;
     private float maxSpeed = 8.0f;
@@ -39,7 +43,13 @@ public class PlayerController : MonoBehaviour
         //Shoot projectile if there is input
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Instantiate(projectile, new Vector3(transform.position.x+1f, transform.position.y+1f, transform.position.z), Quaternion.Euler(-35f, transform.eulerAngles.y, transform.eulerAngles.z));
+            Instantiate(projectile, new Vector3(transform.position.x+1.6f, transform.position.y+1f, transform.position.z), Quaternion.Euler(-35f, transform.eulerAngles.y, transform.eulerAngles.z));
+        }
+
+        if(health <= 0)
+        {
+            isAlive = false;
+            Debug.Log(gameObject.tag + " died.");
         }
     }
 
@@ -63,6 +73,13 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             hasWeapon = true;
             StartCoroutine(WeaponCountdownRoutine());
+        }
+
+        // Hit by a projectile
+        if (collision.gameObject.CompareTag("Projectile"))
+        {
+            Destroy(collision.gameObject);
+            health -= 10;
         }
     }
 

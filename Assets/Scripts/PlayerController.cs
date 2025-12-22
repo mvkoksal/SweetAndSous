@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Projectile"))
         {
             Destroy(collision.gameObject);
-            health -= 10;
+            health -= collision.gameObject.damage;
         }
     }
 

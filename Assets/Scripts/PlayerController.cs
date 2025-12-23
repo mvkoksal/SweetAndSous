@@ -21,8 +21,6 @@ public class PlayerController : MonoBehaviour
 
     private bool hasWeapon = false;
     private Weapon curWeapon;
-    public GameObject projectile;
-
     private Rigidbody playerRb;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -72,7 +70,6 @@ public class PlayerController : MonoBehaviour
         // Pick up a weapon and set the hasWeapon variable.
         if(collision.gameObject.CompareTag("Weapon"))
         {
-            Destroy(collision.gameObject);
             hasWeapon = true;
             curWeapon = collision.gameObject.GetComponent<Weapon>();
             StartCoroutine(WeaponCountdownRoutine());
@@ -89,7 +86,17 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         // Get horizontal input and add horizontal movement
-        float horizontalInput = Input.GetAxis("Horizontal");
+        float horizontalInput = 0f;
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            horizontalInput = -1f;
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            horizontalInput = 1f;
+        }
+
         playerRb.AddForce(horizontalInput * speed * Vector3.right);
 
         bool jumping = Input.GetKey(KeyCode.UpArrow);

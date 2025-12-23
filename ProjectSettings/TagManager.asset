@@ -8,8 +8,6 @@ TagManager:
   - Weapon
   - Fridge
   - Projectile
-  - Woman
-  - Man
   layers:
   - Default
   - TransparentFX

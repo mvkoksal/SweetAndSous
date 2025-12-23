@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private float xBound = 17.0f;
 
     private bool hasWeapon = false;
+    private Weapon curWeapon;
     public GameObject projectile;
 
     private Rigidbody playerRb;
@@ -41,9 +42,10 @@ public class PlayerController : MonoBehaviour
         ConstrainPlayerPosition();
 
         //Shoot projectile if there is input
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow) && hasWeapon)
         {
-            Instantiate(projectile, new Vector3(transform.position.x+1.6f, transform.position.y+1f, transform.position.z), Quaternion.Euler(-35f, transform.eulerAngles.y, transform.eulerAngles.z));
+            // ShootWeapon takes the player's position
+            curWeapon.ShootWeapon(transform.position);
         }
 
         if(health <= 0)
@@ -72,6 +74,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             hasWeapon = true;
+            curWeapon = collision.gameObject.GetComponent<Weapon>();
             StartCoroutine(WeaponCountdownRoutine());
         }
 
@@ -79,7 +82,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Projectile"))
         {
             Destroy(collision.gameObject);
-            health -= collision.gameObject.damage;
+            health -= collision.gameObject.GetComponent<Projectile>().damage;
         }
     }
 

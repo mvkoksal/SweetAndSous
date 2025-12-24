@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6021125951535601490}
   - component: {fileID: 4158951058771093951}
   - component: {fileID: 2141922598125773604}
+  - component: {fileID: -8817027136109957900}
   m_Layer: 0
   m_Name: Weapon3
   m_TagString: Weapon
@@ -138,3 +139,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-8817027136109957900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6812898701809609597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab03c0644608554cba913188add9cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  fireRate: 0
+  projectile: {fileID: 6995789397828191682, guid: 964eb9a30aacc7b4ea31837fbc550079, type: 3}
+  spawnManager: {fileID: 0}

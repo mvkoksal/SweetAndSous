@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private float xBound = 17.0f;
 
-    private bool hasWeapon = false;
+    public bool hasWeapon = false;
     private Weapon curWeapon;
     private Rigidbody playerRb;
 
@@ -67,14 +67,6 @@ public class PlayerController : MonoBehaviour
             isOnGround = true;
         }
 
-        // Pick up a weapon and set the hasWeapon variable.
-        if(collision.gameObject.CompareTag("Weapon"))
-        {
-            hasWeapon = true;
-            curWeapon = collision.gameObject.GetComponent<Weapon>();
-            StartCoroutine(WeaponCountdownRoutine());
-        }
-
         // Hit by a projectile
         if (collision.gameObject.CompareTag("Projectile"))
         {
@@ -83,6 +75,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void EquipWeapon(Weapon weapon)
+    {
+        hasWeapon = true;
+        curWeapon = weapon;
+        StartCoroutine(WeaponCountdownRoutine());
+    }
+            
     private void MovePlayer()
     {
         // Get horizontal input and add horizontal movement

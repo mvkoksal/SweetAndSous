@@ -30,7 +30,10 @@ public class SpawnManager : MonoBehaviour
             fridges.RemoveAt(fridgeIndex);
 
             int weaponIndex = Random.Range(0, weapons.Count);
-            Instantiate(weapons[weaponIndex], spawnPos, weapons[weaponIndex].transform.rotation);
+            GameObject newWeapon = Instantiate(weapons[weaponIndex], spawnPos, weapons[weaponIndex].transform.rotation);
+            // give the instantiated weapon a reference to this spawnManager
+            newWeapon.GetComponent<Weapon>().SetSpawnManager(this);
+            
         }
     }
 }

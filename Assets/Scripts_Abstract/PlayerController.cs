@@ -48,23 +48,31 @@ public abstract class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MovePlayer();
-        ConstrainPlayerPosition();
-        GetDownInput();
-
-        //Shoot projectile if there is input
-        if (hasDownInput && hasWeapon)
+        if (!gameOver)
         {
-            // ShootWeapon takes the player's position and direction as input
-            curWeapon.ShootWeapon(transform.position, weaponDir);
-            playerAnim.SetTrigger("Shoot_trig");
+            MovePlayer();
+            ConstrainPlayerPosition();
+            GetDownInput();
+
+            //Shoot projectile if there is input
+            if (hasDownInput && hasWeapon)
+            {
+                // ShootWeapon takes the player's position and direction as input
+                curWeapon.ShootWeapon(transform.position, weaponDir);
+                playerAnim.SetTrigger("Shoot_trig");
+            }
+        } else
+        {
+            //game over
+            playerAnim.SetFloat("Speed_f", 0f);
         }
+
 
         if (health <= 0)
         {
             isAlive = false;
             playerAnim.SetBool("Death_b", true);
-            playerAnim.SetInteger("DeathType_int", 1);
+            playerAnim.SetInteger("DeathType_int", 2);
             gameOver = true;
             Debug.Log(gameObject.name + " died.");
         }
@@ -136,7 +144,8 @@ public abstract class PlayerController : MonoBehaviour
         {
             playerAnim.SetFloat("Speed_f", 0f);
         }
-            playerRb.AddForce(horizontalInput * speed * Vector3.right);
+           
+        playerRb.AddForce(horizontalInput * speed * Vector3.right);
 
         GetJumpInput();
         // Jump when up arrow is pressed, prevent double-jumping
@@ -180,13 +189,19 @@ public abstract class PlayerController : MonoBehaviour
         //playerRb.position = pos;
 
         // Set boundaries on the x axis
-        if (transform.position.x > xBound)
+        Vector3 pos = playerRb.position;
+
+        if (pos.x > xBound)
         {
-            transform.position = new Vector3(xBound, transform.position.y, transform.position.z);
+            pos.x = xBound;
+            playerRb.linearVelocity = new Vector3(0, playerRb.linearVelocity.y, playerRb.linearVelocity.z);
         }
-        if (transform.position.x < -xBound)
+        else if (pos.x < -xBound)
         {
-            transform.position = new Vector3(-xBound, transform.position.y, transform.position.z);
+            pos.x = -xBound;
+            playerRb.linearVelocity = new Vector3(0, playerRb.linearVelocity.y, playerRb.linearVelocity.z);
         }
+
+        playerRb.position = pos;
     }
 }

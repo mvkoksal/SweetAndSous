@@ -42,6 +42,7 @@ public abstract class Weapon : MonoBehaviour
             // Update state in player
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
             player.EquipWeapon(this);
+            player.playerAnim.SetInteger("WeaponType_int", 1);
 
             // The weapon is picked up.
             Destroy(gameObject);

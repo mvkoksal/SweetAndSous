@@ -31,9 +31,7 @@ public abstract class PlayerController : MonoBehaviour
     public float weaponDir;
 
     public Rigidbody playerRb;
-
-    //Animation
-    private Animator playerAnim;
+    public Animator playerAnim;
 
     //private void FixedUpdate()
     // Transfer physics related stuff over later.
@@ -59,6 +57,7 @@ public abstract class PlayerController : MonoBehaviour
         {
             // ShootWeapon takes the player's position and direction as input
             curWeapon.ShootWeapon(transform.position, weaponDir);
+            playerAnim.SetTrigger("Shoot_trig");
         }
 
         if (health <= 0)
